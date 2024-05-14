@@ -16,7 +16,7 @@
     }
 
     .background-light800_darkgradient {
-        @apply bg-light-800 dark:dark-gradient;
+        @apply bg-light-800 dark:dark-gradient !important;
     }
 
     .background-light800_dark400 {
@@ -92,7 +92,7 @@
     }
 
     .light-border {
-        @apply border-light-800 dark:border-dark-300;
+        @apply border-light-800 dark:border-dark-300 !important;
     }
 
     .light-border-2 {
