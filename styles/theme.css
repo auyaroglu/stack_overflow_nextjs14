@@ -28,7 +28,7 @@
     }
 
     .background-light700_dark300 {
-        @apply bg-light-700 dark:bg-dark-300;
+        @apply bg-light-700 dark:bg-dark-300 !important;
     }
 
     .background-light800_dark400 {
