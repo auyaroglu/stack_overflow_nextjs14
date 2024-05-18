@@ -56,7 +56,8 @@ interface BundledEditorProps {
     // For example:
     initialValue: string;
     init: any;
-    // onChange: (content: string) => void;
+    onEditorChange: any
+    onBlur: any
 }
 
 const BundledEditor: React.FC<BundledEditorProps> = (props) => {
@@ -65,7 +66,8 @@ const BundledEditor: React.FC<BundledEditorProps> = (props) => {
             apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
             init={props.init}
             initialValue={props.initialValue}
-        // onEditorChange={props.onChange}
+            onEditorChange={props.onEditorChange}
+            onBlur={props.onBlur}
         />
     );
 };
