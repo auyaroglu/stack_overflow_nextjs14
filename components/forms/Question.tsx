@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import BundledEditor from "@/components/shared/BundleEditor"
+import dynamic from "next/dynamic";
 
 import {
     Form,
@@ -21,12 +21,25 @@ import { QuestionsSchema } from "@/lib/validations"
 import { Badge } from "../ui/badge"
 import Image from "next/image"
 import { createQuestion } from "@/lib/actions/question.action"
+import { useRouter, usePathname } from "next/navigation"
+
+// ReferenceError: navigator is not  hatası nedeni ile bu şekilde import ediyoruz
+// https://stackoverflow.com/questions/77041616/how-to-fix-referenceerror-navigator-is-not-defined-during-build
+const BundledEditor = dynamic(() => import("@/components/shared/BundleEditor"), {
+    ssr: false,
+});
 
 const type: any = 'create'
 
-const Question = () => {
+interface Props {
+    mongoUserId: string
+}
+
+const Question = ({ mongoUserId }: Props) => {
     // Form bir kez gönderilirken, işlem bitmeden ikinci kez gönderilmesini engellemek için eklendi
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const router = useRouter()
+    const pathname = usePathname()
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof QuestionsSchema>>({
@@ -46,9 +59,15 @@ const Question = () => {
             // make an async call to your API -> create a question
             // contain all form data
 
-            await createQuestion({})
+            await createQuestion({
+                title: values.title,
+                content: values.explanation,
+                tags: values.tags,
+                author: JSON.parse(mongoUserId)
+            })
 
             // navigate to home page
+            router.push('/')
         } catch (error) {
 
         } finally {
