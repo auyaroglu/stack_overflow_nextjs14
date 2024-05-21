@@ -5,47 +5,13 @@ import HomeFilters from "@/components/shared/home/HomeFilters"
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar"
 import { Button } from "@/components/ui/button"
 import { HomePageFilters } from "@/constants/filters"
+import { getQuestions } from "@/lib/actions/question.action"
 import Link from "next/link"
 import React from "react"
 
-const questions = [
-    {
-        _id: "1",
-        title: "How to use TypeScript with React?",
-        tags: [
-            { _id: "1", name: "TypeScript" },
-            { _id: "2", name: "React" }
-        ],
-        author: {
-            _id: "123",
-            name: "John Doe",
-            picture: "john-doe.jpg"
-        },
-        upvotes: 1500000,
-        views: 500362,
-        answers: [],
-        createdAt: new Date('2024-05-14T12:00:00.000Z')
-    },
-    {
-        _id: "2",
-        title: "What are the benefits of using Tailwind CSS?",
-        tags: [
-            { _id: "3", name: "CSS" },
-            { _id: "4", name: "Tailwind" }
-        ],
-        author: {
-            _id: "456",
-            name: "Jane Smith",
-            picture: "jane-smith.jpg"
-        },
-        upvotes: 15,
-        views: 150,
-        answers: [],
-        createdAt: new Date('2021-08-15T09:30:00.000Z')
-    },
-];
+const Home = async () => {
+    const result = await getQuestions({})
 
-const Home = () => {
     return (
         <>
             <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -82,8 +48,8 @@ const Home = () => {
             <HomeFilters />
 
             <div className="mt-10 flex w-full flex-col gap-6">
-                {questions.length > 0 ?
-                    questions.map((question) => (
+                {result.questions.length > 0 ?
+                    result.questions.map((question) => (
                         <QuestionCard
                             key={question._id}
                             _id={question._id}
