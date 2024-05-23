@@ -22,6 +22,7 @@ import { Badge } from "../ui/badge"
 import Image from "next/image"
 import { createQuestion } from "@/lib/actions/question.action"
 import { useRouter, usePathname } from "next/navigation"
+import { useTheme } from "@/context/ThemeProvider"
 
 // ReferenceError: navigator is not  hatası nedeni ile bu şekilde import ediyoruz
 // https://stackoverflow.com/questions/77041616/how-to-fix-referenceerror-navigator-is-not-defined-during-build
@@ -36,6 +37,8 @@ interface Props {
 }
 
 const Question = ({ mongoUserId }: Props) => {
+    const { mode } = useTheme()
+
     // Form bir kez gönderilirken, işlem bitmeden ikinci kez gönderilmesini engellemek için eklendi
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter()
@@ -156,7 +159,9 @@ const Question = ({ mongoUserId }: Props) => {
                                             'codesample | bold italic forecolor | alignleft aligncenter ' +
                                             'alignright alignjustify | bullist numlist outdent indent | ' +
                                             'removeformat | help',
-                                        content_style: 'body { font-family:Inter; font-size:16px }'
+                                        content_style: 'body { font-family:Inter; font-size:16px }',
+                                        skin: mode === 'dark' ? 'oxide-dark' : 'oxide',
+                                        content_css: mode === 'dark' ? 'dark' : 'light',
                                     }}
                                 />
                             </FormControl>

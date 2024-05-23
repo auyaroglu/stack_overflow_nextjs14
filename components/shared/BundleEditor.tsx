@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -7,10 +9,12 @@ import 'tinymce/tinymce';
 import 'tinymce/models/dom/model';
 // Theme
 import 'tinymce/themes/silver';
+
 // Toolbar icons
 import 'tinymce/icons/default';
 // Editor styles
 import 'tinymce/skins/ui/oxide/skin';
+import 'tinymce/skins/ui/oxide-dark/skin';
 
 // importing the plugin js.
 // if you use a plugin that is not listed here the editor will fail to load
@@ -49,12 +53,13 @@ import 'tinymce/plugins/emoticons/js/emojis';
 
 // Content styles, including inline UI like fake cursors
 import 'tinymce/skins/content/default/content';
-import 'tinymce/skins/ui/oxide/content';
+import 'tinymce/skins/content/dark/content';
 
 interface BundledEditorProps {
     // Define your props here
     // For example:
-    initialValue: string;
+    onInit?: any
+    initialValue?: string;
     init: any;
     onEditorChange: any
     onBlur: any
@@ -64,6 +69,7 @@ const BundledEditor: React.FC<BundledEditorProps> = (props) => {
     return (
         <Editor
             apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
+            onInit={props.onInit}
             init={props.init}
             initialValue={props.initialValue}
             onEditorChange={props.onEditorChange}
