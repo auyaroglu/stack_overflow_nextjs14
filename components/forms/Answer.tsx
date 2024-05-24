@@ -12,7 +12,6 @@ import Image from "next/image"
 import dynamic from 'next/dynamic';
 import { createAnswer } from "@/lib/actions/answer.action"
 import { usePathname } from "next/navigation"
-import error from "next/error"
 
 const BundledEditor = dynamic(() => import("@/components/shared/BundleEditor"), {
     ssr: false,
