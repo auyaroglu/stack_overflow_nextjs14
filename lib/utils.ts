@@ -35,10 +35,12 @@ export const getTimestamp = (createdAt: Date): string => {
 
 export const formatAndDivideNumber = (num: number): string => {
     if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + "M"
+        const formattedNum = (num / 1000000).toFixed(1);
+        return `${formattedNum}M`;
     } else if (num >= 1000) {
-        return (num / 1000).toFixed(1) + "K"
+        const formattedNum = (num / 1000).toFixed(1);
+        return `${formattedNum}K`;
     } else {
-        return num.toString()
+        return num.toString();
     }
-}
+};
