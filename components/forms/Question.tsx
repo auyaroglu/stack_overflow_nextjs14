@@ -44,16 +44,16 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
     const router = useRouter()
     const pathname = usePathname()
 
-    const parsedQuestionDetails = JSON.parse(questionDetails || "")
+    const parsedQuestionDetails = questionDetails && JSON.parse(questionDetails || "")
 
-    const groupedTags = parsedQuestionDetails.tags.map((tag) => tag.name)
+    const groupedTags = parsedQuestionDetails?.tags.map((tag: any) => tag.name)
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof QuestionsSchema>>({
         resolver: zodResolver(QuestionsSchema),
         defaultValues: {
-            title: parsedQuestionDetails.title || "",
-            explanation: parsedQuestionDetails.content || "",
+            title: parsedQuestionDetails?.title || "",
+            explanation: parsedQuestionDetails?.content || "",
             tags: groupedTags || []
         },
     })
@@ -154,7 +154,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
                             <FormLabel className="paragraph-semibold text-dark400_light800">Detailed explanation of your problem <span className="text-primary-500">*</span></FormLabel>
                             <FormControl className="mt-3.5">
                                 <BundledEditor
-                                    initialValue={parsedQuestionDetails.content || ""}
+                                    initialValue={parsedQuestionDetails?.content || ""}
                                     onBlur={field.onBlur}
                                     onEditorChange={(content: string) => field.onChange(content)}
                                     init={{

@@ -2,14 +2,8 @@ import Image from "next/image"
 import Link from "next/link"
 import React from 'react'
 import RenderTag from "./RenderTag"
-
-const hotQuestions = [
-    { _id: '1', title: "How do I use express as a custom server in NextJS?" },
-    { _id: '2', title: "Cascading Deletes in SQLAlchemy?" },
-    { _id: '3', title: "How to Perfectly Center a Div with Tailwind CSS?" },
-    { _id: '4', title: "Best practices for data fetching in a Next.js application with Server-Side Rendering?" },
-    { _id: '5', title: "Redux Toolikit Not Updating State as Expected?" },
-]
+import { getHotQuestions } from "@/lib/actions/question.action"
+import { getTopPopularTags } from "@/lib/actions/tag.actions"
 
 const popularTags = [
     { _id: '1', name: 'javascript', totalQuestions: 5 },
@@ -18,7 +12,11 @@ const popularTags = [
     { _id: '4', name: 'vue', totalQuestions: 2 },
     { _id: '5', name: 'redux', totalQuestions: 10 },
 ]
-const RightSidebar = () => {
+
+const RightSidebar = async () => {
+    const hotQuestions = await getHotQuestions()
+    const popularTags = await getTopPopularTags()
+
     return (
         <section className="background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 flex h-screen w-[350px] flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden">
             <div>
@@ -50,7 +48,7 @@ const RightSidebar = () => {
                             key={tag._id}
                             _id={tag._id}
                             name={tag.name}
-                            totalQuestions={tag.totalQuestions}
+                            totalQuestions={tag.numberOfQuestions}
                             showCount
                         />
                     ))}
