@@ -1,6 +1,7 @@
 import QuestionCard from "@/components/cards/QuestionCard"
 import Filter from "@/components/shared/Filter"
 import NoResult from "@/components/shared/NoResult"
+import Pagination from "@/components/shared/Pagination"
 import HomeFilters from "@/components/shared/home/HomeFilters"
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar"
 import { Button } from "@/components/ui/button"
@@ -13,7 +14,8 @@ import React from "react"
 const Home = async ({ searchParams }: SearchParamsProps) => {
     const result = await getQuestions({
         searchQuery: searchParams.q || "",
-        filter: searchParams.filter
+        filter: searchParams.filter,
+        page: searchParams.page ? +searchParams.page : 1,
     })
 
     // Fetch Recommended Questions
@@ -75,6 +77,12 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
                         linkTitle="Ask a Question"
                     />
                 }
+            </div>
+            <div className="mt-10">
+                <Pagination
+                    pageNumber={searchParams?.page ? +searchParams.page : 1}
+                    isNext={result.isNext}
+                />
             </div>
         </>
     )
