@@ -76,7 +76,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
                         height={12}
                         className="object-contain"
                     />
-                    Generate an AI Answer
+                    Generate AI Answer
                 </Button>
             </div>
             <Form {...form}>
