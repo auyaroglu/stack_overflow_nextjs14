@@ -30,6 +30,7 @@
         "mongodb": "^6.6.2",
         "mongoose": "^8.3.5",
         "next": "^14.2.4",
+        "openai": "^4.0.0",
         "prettier": "^3.2.5",
         "prismjs": "^1.29.0",
         "query-string": "^9.0.0",
