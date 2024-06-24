@@ -23,6 +23,7 @@ import Image from "next/image"
 import { createQuestion, editQuestion } from "@/lib/actions/question.action"
 import { useRouter, usePathname } from "next/navigation"
 import { useTheme } from "@/context/ThemeProvider"
+import { toast } from "../ui/use-toast"
 
 // ReferenceError: navigator is not  hatası nedeni ile bu şekilde import ediyoruz
 // https://stackoverflow.com/questions/77041616/how-to-fix-referenceerror-navigator-is-not-defined-during-build
@@ -88,6 +89,10 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         } catch (error) {
 
         } finally {
+            toast({
+                title: `Question created!`,
+                variant: 'default',
+            });
             setIsSubmitting(false)
         }
     }
