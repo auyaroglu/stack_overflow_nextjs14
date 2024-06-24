@@ -8,8 +8,13 @@ import { getQuestionById } from "@/lib/actions/question.action"
 import { getUserById } from "@/lib/actions/user.action"
 import { formatAndDivideNumber, getTimestamp } from "@/lib/utils"
 import { auth } from "@clerk/nextjs/server"
+import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+    title: "Question | DevFlow",
+}
 
 const Page = async ({ params, searchParams }) => {
     const { userId: clerkId } = auth()

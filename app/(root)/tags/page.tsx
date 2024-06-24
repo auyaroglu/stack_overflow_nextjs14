@@ -5,7 +5,12 @@ import LocalSearchbar from "@/components/shared/search/LocalSearchbar"
 import { TagFilters } from "@/constants/filters"
 import { getAllTags } from "@/lib/actions/tag.actions"
 import { SearchParamsProps } from "@/types"
+import { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+    title: "Tags | DevFlow",
+}
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
     const result = await getAllTags({
