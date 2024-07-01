@@ -17,6 +17,7 @@ interface QuestionProps {
         _id: string
         name: string
         picture: string
+        clerkId?: string | null
     }
     upvotes: string[]
     views: number

@@ -8,7 +8,6 @@ import { getTimestamp } from "@/lib/utils"
 import ParseHTML from "./ParseHTML"
 import Votes from "./Votes"
 import Pagination from "./Pagination"
-import page from "@/app/(root)/(home)/page"
 
 interface Props {
     questionId: string

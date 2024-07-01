@@ -26,7 +26,7 @@ interface Props {
 const Answer = ({ question, questionId, authorId }: Props) => {
     const pathname = usePathname()
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [isSubmittingAI, setIsSubmittingAI] = useState(false)
+    // const [isSubmittingAI, setIsSubmittingAI] = useState(false)
     const { mode } = useTheme()
     const editorRef = useRef(null)
 
@@ -65,7 +65,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
     const generateAIAnswer = async () => {
         if (!authorId) return;
 
-        setIsSubmittingAI(true)
+        // setIsSubmittingAI(true)
 
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
@@ -81,7 +81,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         } catch (error) {
             console.log(error)
         } finally {
-            setIsSubmittingAI(false)
+            // setIsSubmittingAI(false)
         }
     }
 

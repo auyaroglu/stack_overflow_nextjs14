@@ -11,31 +11,34 @@ const SearchableTypes = ["question", "answer", "user", "tag"]
 
 export async function globalSearch(params: SearchParams) {
     try {
-        await connectToDatabase()
+        await connectToDatabase();
 
-        const { query, type } = params
-        const regexQuery = { $regex: query, $options: "i" }
+        const { query, type } = params;
+        if (!query) {
+            throw new Error('Query is required');
+        }
 
-        let results = []
+        const regexQuery = { $regex: query, $options: "i" };
+        let results: any[] = [];
 
         const modelsAndTypes = [
             { model: Question, searchField: 'title', type: 'question' },
             { model: User, searchField: 'name', type: 'user' },
             { model: Answer, searchField: 'content', type: 'answer' },
             { model: Tag, searchField: 'name', type: 'tag' },
-        ]
+        ];
 
-        const typeLower = type?.toLowerCase()
+        const typeLower = type?.toLowerCase() || "";
 
         if (!typeLower || !SearchableTypes.includes(typeLower)) {
             // SEARCH ACROSS EVERYTHING
             for (const { model, searchField, type } of modelsAndTypes) {
                 const queryResults = await model
                     .find({ [searchField]: regexQuery })
-                    .limit(2)
+                    .limit(2);
 
                 results.push(
-                    ...queryResults.map((item) => ({
+                    ...queryResults.map((item: any) => ({
                         title: type === 'answer'
                             ? `Answers containing ${query}`
                             : item[searchField],
@@ -46,34 +49,35 @@ export async function globalSearch(params: SearchParams) {
                                 ? item.question
                                 : item._id
                     }))
-                )
+                );
             }
         } else {
-            const modelInfo = modelsAndTypes.find((item) => item.type === type)
+            const modelInfo = modelsAndTypes.find((item) => item.type === typeLower);
 
             if (!modelInfo) {
-                throw new Error('invalid search type')
+                throw new Error('Invalid search type');
             }
 
             const queryResults = await modelInfo.model
                 .find({ [modelInfo.searchField]: regexQuery })
-                .limit(8)
+                .limit(8);
 
-            results = queryResults.map((item) => ({
-                title: type === 'answer'
+            results = queryResults.map((item: any) => ({
+                title: typeLower === 'answer'
                     ? `Answers containing ${query}`
                     : item[modelInfo.searchField],
-                type,
-                id: type === 'user'
+                type: typeLower,
+                id: typeLower === 'user'
                     ? item.clerkId
-                    : type === 'answer'
+                    : typeLower === 'answer'
                         ? item.question
                         : item._id
-            }))
+            }));
         }
 
-        return JSON.stringify(results)
+        return JSON.stringify(results);
     } catch (error) {
-        console.log(`Error fetching global results, ${error}`)
+        console.error(`Error fetching global results: ${error}`);
+        throw error;
     }
 }

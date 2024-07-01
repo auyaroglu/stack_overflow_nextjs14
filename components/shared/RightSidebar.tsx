@@ -5,16 +5,8 @@ import RenderTag from "./RenderTag"
 import { getHotQuestions } from "@/lib/actions/question.action"
 import { getTopPopularTags } from "@/lib/actions/tag.actions"
 
-const popularTags = [
-    { _id: '1', name: 'javascript', totalQuestions: 5 },
-    { _id: '2', name: 'react', totalQuestions: 5 },
-    { _id: '3', name: 'next', totalQuestions: 5 },
-    { _id: '4', name: 'vue', totalQuestions: 2 },
-    { _id: '5', name: 'redux', totalQuestions: 10 },
-]
-
 const RightSidebar = async () => {
-    const hotQuestions = await getHotQuestions()
+    const hotQuestions: any = await getHotQuestions()
     const popularTags = await getTopPopularTags()
 
     return (
@@ -22,7 +14,7 @@ const RightSidebar = async () => {
             <div>
                 <h3 className="h3-bold text-dark200_light900">Top Questions</h3>
                 <div className="mt-7 flex w-full flex-col gap-[30px]">
-                    {hotQuestions.map((question) => (
+                    {hotQuestions.map((question: any) => (
                         <Link
                             href={`/question/${question._id}`}
                             key={question._id}

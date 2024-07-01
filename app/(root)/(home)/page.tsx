@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const Home = async ({ searchParams }: SearchParamsProps) => {
     const { userId } = auth()
 
-    let result
+    let result: any
 
     if (searchParams?.filter === 'recommended') {
         if (userId) {
@@ -84,7 +84,7 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
 
             <div className="mt-10 flex w-full flex-col gap-6">
                 {result.questions.length > 0 ?
-                    result.questions.map((question) => (
+                    result.questions.map((question: any) => (
                         <QuestionCard
                             key={question._id}
                             _id={question._id}
